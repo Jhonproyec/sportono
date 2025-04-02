@@ -1,0 +1,266 @@
+/* Si estás usando TailwindCSS, asegúrate de que esta importación esté correcta en tu proyecto (configuración adecuada en tailwind.config.js) */
+/* No es necesario @import 'tailwindcss'; en un archivo normal de CSS. Esto se maneja en la configuración de Tailwind. */
+
+/* Ajuste de colores y fuente */
+:root {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --bg-color: #f7f7f7; /* Fondo del contenedor */
+    --card-bg: #ffffff; /* Fondo de la tarjeta */
+    --border-radius: 20px;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    --shadow-offset-x: 5px;
+    --shadow-blur: 10px;
+    --primary-color: #0A39B3;
+    --primary-color-hover: #0a3192;
+}
+body{
+    background-color: #ffffff;
+    overflow-x: hidden;
+}
+a{
+    text-decoration: none;
+}
+.form-control:focus{
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(243, 156, 18, 0.5);
+}
+.form-check-input:checked {
+    border-color: var(--primary-color); /* Borde verde */
+    background-color: var(--primary-color); /* Fondo verde */
+  }
+
+.btn-primary{
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover{
+    background: var(--primary-color-hover);
+}
+
+.container-login { /* Usa la variable */
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-login {
+    display: flex;
+    width: 1400px;
+    max-width: 100%;
+    height: 850px;
+    max-height: 100vh; /* Para que nunca sobrepase la altura de la pantalla */
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box; 
+
+}
+
+form {
+    width: 100%;
+}
+
+.bg-image {
+    width: 65%; /* 65% de la anchura de la card */
+    height: 100%; /* Ocupa toda la altura */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bg-image img {
+    width: 100%; /* La imagen ocupa todo el ancho */
+    height: 100%; /* La imagen ocupa toda la altura */
+    object-fit: cover; /* Asegura que la imagen cubra el contenedor sin distorsionarse */
+}
+
+/* 📌 Sección de autenticación ocupa el 40% */
+.form-login {
+    flex: 35%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    padding: 20px 60px;
+    background: #fff; 
+    height: 100%;
+    overflow: hidden;
+    border-top-right-radius: 10px; /* Usar la variable para los bordes */
+    border-bottom-right-radius: 10px;
+    box-shadow: var(--shadow-offset-x) 0 var(--shadow-blur) var(--shadow-color);
+}
+.login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.login-header img {
+    width: 300px;
+}
+.login-header .digital {
+    color: #6c757d;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.login-title {
+    font-size: 25px;
+    font-weight: 400;
+
+}
+.form-label {
+    /* font-weight: bold; */
+    margin-bottom: 0.5rem;
+    display: block;
+    font-size: 14px;
+    
+}
+.login-subtitle{
+    font-size: 15px;
+    color: #a1a1a1;
+}
+
+.form-login .form-control {
+    /* padding: 0.75rem; */
+    background: #ffffff;
+    margin-bottom: 1.5rem;
+}
+.forgot-password {
+    text-align: right;
+    margin-top: -1rem;
+    margin-bottom: 1.5rem;
+}
+.forgot-password a {
+    text-decoration: none;
+    font-size: 0.9rem;
+    color: var(--primary-color);
+}
+.remember-me {
+    margin-bottom: 1.5rem;
+}
+.btn-login {
+    width: 100%;
+    padding: 0.75rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+/* 🔥 Cuando la pantalla sea de 1300px o menos */
+@media (max-width: 1300px) {
+    form {
+        max-width: 300px;
+    }
+
+    .bg-image {
+        display: none; /* 📌 Oculta la imagen */
+    }
+
+    .authentication {
+        flex: 100%; /* 📌 Ocupa todo el espacio */
+    }
+}
+
+
+
+
+
+    /* Sidebar */
+    #sidebar-wrapper {
+        position: fixed;
+        top: 0;
+        left: -320px;
+        width: 220px;
+        height: 100%;
+        background: #ffffff;
+        color: white;
+        transition: all 0.3s ease;
+        z-index: 1000;
+        padding-top: 20px;
+    }
+
+    #sidebar-wrapper.active {
+        left: 0;
+    }
+
+    .card-content{
+        width: 100%;
+    }
+    /* Contenido */
+    #page-content-wrapper {
+        border-radius: 10px;
+        background-color: var(--bg-color);
+        transition: margin-left 0.3s ease;
+        margin-top: 80px;
+        padding: 20px;
+        margin-right: 20px;
+    }
+    .content{
+        background-color: #ffffff;
+        border-radius: 8px;
+        width: 100%;
+        height: 100%;
+        padding: 10px;
+    }
+    .list-unstyled{
+        width: 100%;
+        height: 50px;
+        background-color: rgba(10, 57, 179, 0.2);
+        display: flex;
+        align-items: center;
+        padding-left: 20px;
+        font-size: 17px;
+        margin-left: 10px;
+        border-radius: 10px;
+    }
+
+    .list-unstyled li {
+        font-size: 10px;
+    }
+    .list-unstyled li a{
+        color: var(--primary-color);
+        font-weight: 500;
+    }
+    
+
+
+    #page-content-wrapper.sidebar-active {
+        margin-left: 250px;
+    }
+
+    #sidebar-wrapper img{
+        width: 220px;
+    }
+
+    /* Navbar */
+    .navbar-header {
+        width: 100%;
+        background: #ffffff;
+        position: fixed;
+        top: 0;
+        left: 0;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 999;
+
+    }
+
+    /* Botón del menú */
+    .hamburger {
+        width: 38px;
+        height: 38px;
+        font-size: 20px;
+        color: #0A39B3;
+        background-color: rgba(10, 57, 179, 0.2);
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    .hamburger.sidebar-active {
+        transform: translateX(235px);
+    }
