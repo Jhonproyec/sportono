@@ -1,118 +1,168 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Postularse</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</head>
-<body>
-    <div class="container mt-5">
-        <div class="card shadow p-4">
-            <div class="text-center">
-                <img style="width: 350px" class="logo" src="{{ asset('build/assets/img/logo.webp') }}" alt="Logo taller Sieten Motor">
-                <h2 class="mb-4">Postularse</h2>
-            </div>
-            <form>
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <label class="form-label">Nombres</label>
-                        <input type="text" class="form-control" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Apellidos</label>
-                        <input type="text" class="form-control" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Fecha de Nacimiento</label>
-                        <input type="date" class="form-control" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Sexo</label>
-                        <select class="form-select" required>
-                            <option value="">Seleccione</option>
-                            <option>Masculino</option>
-                            <option>Femenino</option>
-                            <option>Otro</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Correo</label>
-                        <input type="email" class="form-control" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Teléfono</label>
-                        <input type="tel" class="form-control" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Provincia</label>
-                        <input type="text" class="form-control" required>
-                    </div>
-                    <div class="col-md-12">
-                        <label class="form-label">Ciudad</label>
-                        <input type="text" class="form-control" required>
-                    </div>
-                    
-                    <div class="col-md-12">
-                        <label class="form-label">Disponibilidad Horaria</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="Jornada Completa">
-                            <label class="form-check-label">Jornada Completa</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="Media Jornada">
-                            <label class="form-check-label">Media Jornada</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="Fines de Semana">
-                            <label class="form-check-label">Fines de Semana</label>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-12">
-                        <label class="form-label">Tiendas donde quiere trabajar</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="Novelda">
-                            <label class="form-check-label">Novelda</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="Castalla">
-                            <label class="form-check-label">Castalla</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="Dolores">
-                            <label class="form-check-label">Dolores</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="San Blas">
-                            <label class="form-check-label">San Blas</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="Formana CC">
-                            <label class="form-check-label">Formana CC</label>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-6">
-                        <label class="form-label">Adjuntar CV</label>
-                        <input type="file" class="form-control" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Adjuntar Foto (Opcional)</label>
-                        <input type="file" class="form-control">
-                    </div>
-                    <div class="col-md-12">
-                        <label class="form-label">Mensaje</label>
-                        <textarea class="form-control" rows="3"></textarea>
-                    </div>
-                    
-                    <div class="col-md-12 text-center mt-3">
-                        <button type="submit" class="btn btn-primary">Enviar Postulación</button>
-                    </div>
-                </div>
-            </form>
+@extends('layouts.app')
+
+@section('title', 'Sportono | Postulación')
+
+@section('content')
+<div class="container mt-5 mx-auto">
+    <div class="card shadow p-4">
+        <div class="text-center">
+            <img style="width: 80%; max-width: 350px;" class="logo mb-3" src="{{ asset('img/logo.webp') }}" alt="Logo taller Sieten Motor">
+            <h2 class="mb-4">Postularse</h2>
         </div>
+
+        <form action="{{ route('postularse') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="row g-3">
+                {{-- Nombre --}}
+                <div class="col-12 col-md-6">
+                    <label class="form-label">Nombres</label>
+                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}">
+                    @error('name')
+                        <div class="invalid-feedback mt-2">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                {{-- Apellido --}}
+                <div class="col-12 col-md-6">
+                    <label class="form-label">Apellidos</label>
+                    <input type="text" name="lastname" class="form-control @error('lastname') is-invalid @enderror" value="{{ old('lastname') }}">
+                    @error('lastname')
+                        <div class="invalid-feedback mt-2">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                {{-- Fecha de nacimiento --}}
+                <div class="col-12 col-md-4">
+                    <label class="form-label">Fecha de Nacimiento</label>
+                    <input type="date" name="date_birth" class="form-control @error('date_birth') is-invalid @enderror" value="{{ old('date_birth') }}">
+                    @error('date_birth')
+                        <div class="invalid-feedback mt-2">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                {{-- Sexo --}}
+                <div class="col-12 col-md-4">
+                    <label class="form-label">Sexo</label>
+                    <select class="form-select @error('sexo') is-invalid @enderror" name="sexo">
+                        <option value="">Seleccione</option>
+                        <option value="Masculino" {{ old('sexo') == 'Masculino' ? 'selected' : '' }}>Masculino</option>
+                        <option value="Femenino" {{ old('sexo') == 'Femenino' ? 'selected' : '' }}>Femenino</option>
+                        <option value="Otro" {{ old('sexo') == 'Otro' ? 'selected' : '' }}>Otro</option>
+                    </select>
+                    @error('sexo')
+                        <div class="invalid-feedback mt-2">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                {{-- Correo --}}
+                <div class="col-12 col-md-4">
+                    <label class="form-label">Correo</label>
+                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}">
+                    @error('email')
+                        <div class="invalid-feedback mt-2">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                {{-- Teléfono --}}
+                <div class="col-12 col-md-6">
+                    <label class="form-label">Teléfono</label>
+                    <input type="tel" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}">
+                    @error('phone')
+                        <div class="invalid-feedback mt-2">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                {{-- Provincia --}}
+                <div class="col-12 col-md-6">
+                    <label class="form-label">Provincia</label>
+                    <input type="text" name="province" class="form-control @error('province') is-invalid @enderror" value="{{ old('province') }}">
+                    @error('province')
+                        <div class="invalid-feedback mt-2">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                {{-- Ciudad --}}
+                <div class="col-6">
+                    <label class="form-label">Ciudad</label>
+                    <input type="text" name="city" class="form-control @error('city') is-invalid @enderror" value="{{ old('city') }}">
+                    @error('city')
+                        <div class="invalid-feedback mt-2">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                {{-- Disponibilidad Horaria --}}
+                <div class="col-6">
+                    <label class="form-label">Disponibilidad Horaria</label>
+                    <div class="row">
+                        @foreach ($work_days as $wk)
+                            <div class="col-4 col-md-3">
+                                <div class="form-check">
+                                    <input class="form-check-input @error('work_day') is-invalid @enderror"
+                                        type="checkbox" value="{{ $wk->id }}" name="work_day[]"
+                                        {{ is_array(old('work_day')) && in_array($wk->id, old('work_day')) ? 'checked' : '' }}>
+                                    <label class="form-check-label">{{ $wk->name }}</label>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    @error('work_day')
+                        <div class="invalid-feedback mt-2">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                {{-- Tiendas --}}
+                <div class="col-12">
+                    <label class="form-label">Tiendas donde quiere trabajar</label>
+                    <div class="row">
+                        @foreach ($stores as $store)
+                            <div class="col-4 col-md-3 col-lg-2">
+                                <div class="form-check">
+                                    <input class="form-check-input @error('store') is-invalid @enderror"
+                                        type="checkbox" value="{{ $store->id }}" name="store[]"
+                                        {{ is_array(old('store')) && in_array($store->id, old('store')) ? 'checked' : '' }}>
+                                    <label class="form-check-label">{{ $store->name }}</label>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    @error('store')
+                        <div class="invalid-feedback mt-2">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                {{-- CV --}}
+                <div class="col-12 col-md-6">
+                    <label class="form-label">Adjuntar CV (PDF)</label>
+                    <input type="file" name="cv" class="form-control @error('cv') is-invalid @enderror" accept="application/pdf">
+                    @error('cv')
+                        <div class="invalid-feedback mt-2">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                {{-- Foto --}}
+                <div class="col-12 col-md-6">
+                    <label class="form-label">Adjuntar Foto (Opcional, JPG/PNG)</label>
+                    <input type="file" name="photo" class="form-control @error('photo') is-invalid @enderror" accept="image/jpeg,image/png">
+                    @error('photo')
+                        <div class="invalid-feedback mt-2">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                {{-- Comentario --}}
+                <div class="col-12">
+                    <label class="form-label">Comentario</label>
+                    <textarea name="comment" class="form-control @error('comment') is-invalid @enderror" rows="3">{{ old('comment') }}</textarea>
+                    @error('comment')
+                        <div class="invalid-feedback mt-2">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                {{-- Botón --}}
+                <div class="col-12 text-center mt-3">
+                    <button type="submit" class="btn btn-primary">Enviar Postulación</button>
+                </div>
+            </div>
+        </form>
     </div>
-</body>
-</html>
+</div>
+@endsection

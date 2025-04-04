@@ -13,6 +13,12 @@
     --primary-color: #0A39B3;
     --primary-color-hover: #0a3192;
 }
+
+.invalid-feedback{
+    margin-top: -15px;
+}
+
+
 body{
     background-color: #ffffff;
     overflow-x: hidden;
